@@ -1,10 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- خلفية دائرية زهرية -->
-  <circle cx="256" cy="256" r="256" fill="#FF1493" />
-  
-  <!-- نجمة ذهبية كبيرة في المنتصف -->
-  <path d="M256 80l45 138h145l-117 85 45 138-118-85-118 85 45-138-117-85h145z" fill="#FFD700" />
-  
-  <!-- إضافة حرف C و S للدلالة على سيليا وسندباد (اختياري) -->
-  <text x="256" y="450" font-family="Arial" font-size="60" font-weight="bold" fill="#ffffff" text-anchor="middle" opacity="0.8">C &amp; S</text>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ff1493"/>
+      <stop offset="1" stop-color="#ffb347"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#g)"/>
+
+  <circle cx="190" cy="174" r="68" fill="#ffd5b5"/>
+
+  <path d="M122 170c-8-77 120-112 145-13-30-22-53-28-79-23-23 4-42 18-66 36z"
+        fill="#59351e"/>
+
+  <circle cx="168" cy="178" r="7" fill="#34221b"/>
+  <circle cx="212" cy="178" r="7" fill="#34221b"/>
+
+  <path d="M177 207q17 15 33 0"
+        fill="none" stroke="#b44c56" stroke-width="7"
+        stroke-linecap="round"/>
+
+  <ellipse cx="330" cy="305" rx="79" ry="92" fill="#9a603b"/>
+  <circle cx="330" cy="229" r="66" fill="#b8794c"/>
+
+  <circle cx="307" cy="224" r="8" fill="#2c211b"/>
+  <circle cx="353" cy="224" r="8" fill="#2c211b"/>
+
+  <ellipse cx="330" cy="250" rx="23" ry="17" fill="#e5b28a"/>
+
+  <circle cx="322" cy="247" r="4" fill="#2c211b"/>
+  <circle cx="338" cy="247" r="4" fill="#2c211b"/>
+
+  <path d="M88 372q50-66 102 0t102 0 102 0"
+        fill="none" stroke="#2b8a5b" stroke-width="24"
+        stroke-linecap="round"/>
+
+  <text x="256" y="455" font-family="Arial,sans-serif"
+        font-size="38" font-weight="700"
+        text-anchor="middle" fill="#fff">مغامرات</text>
 </svg>
