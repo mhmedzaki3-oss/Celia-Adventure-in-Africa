@@ -1,3 +1,16 @@
+
+
+تخطى إلى المحتوى
+استخدام Gmail مع قارئات الشاشة
+لم يعُد إصدار المتصفح هذا متوفرًا. يُرجى الترقية إلى أحد المتصفّحات المعتمدة.
+1 من 189
+Index.html
+البريد الوارد
+
+AYA Mohamed <ayazaki1911@gmail.com‏>
+9:41 ص ‎(قبل 0 دقيقة)‎
+أنا
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,107 +21,42 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <style>
-        :root {
-            --pink: #FF1493;
-            --gold: #FFD700;
-            --bg-light: #f4f7f6;
-            --card-bg: #ffffff;
-            --text-dark: #2c3e50;
-            --green: #2ecc71;
-            --red: #e74c3c;
-            --blue: #3498db;
-            --orange: #f39c12;
-        }
-
-        body.dark-mode {
-            --bg-light: #121212;
-            --card-bg: #1e1e1e;
-            --text-dark: #ecf0f1;
-        }
-
+        :root { --pink: #FF1493; --gold: #FFD700; --bg-light: #f4f7f6; --card-bg: #ffffff; --text-dark: #2c3e50; --green: #2ecc71; --red: #e74c3c; --blue: #3498db; --orange: #f39c12; --purple: #9b59b6; }
+        body.dark-mode { --bg-light: #121212; --card-bg: #1e1e1e; --text-dark: #ecf0f1; }
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
-        
-        body {
-            background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
-            margin: 0; padding: 15px;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; transition: background 0.3s;
-        }
+        body { background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%); margin: 0; padding: 15px; display: flex; justify-content: center; align-items: center; min-height: 100vh; transition: background 0.3s; }
         body.dark-mode { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
-
-        .phone-frame {
-            width: 100%; max-width: 400px;
-            background-color: var(--card-bg);
-            border-radius: 35px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 0 0 6px var(--pink);
-            overflow: hidden; position: relative;
-            height: 800px; max-height: 95vh;
-            display: flex; flex-direction: column;
-        }
-
-        .status-bar {
-            background-color: var(--pink); color: white;
-            padding: 8px 15px; display: flex; justify-content: space-between;
-            font-size: 12px; font-weight: bold;
-        }
-
+        .phone-frame { width: 100%; max-width: 400px; background-color: var(--card-bg); border-radius: 35px; box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 0 0 6px var(--pink); overflow: hidden; position: relative; height: 800px; max-height: 95vh; display: flex; flex-direction: column; }
+        .status-bar { background-color: var(--pink); color: white; padding: 8px 15px; display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; }
         .controls { display: flex; justify-content: space-between; padding: 10px 15px; background: var(--card-bg); }
-        .icon-btn {
-            background: var(--bg-light); border: none; cursor: pointer;
-            font-size: 16px; padding: 8px 12px; border-radius: 15px;
-            color: var(--text-dark); font-weight: bold;
-        }
-
+        .icon-btn { background: var(--bg-light); border: none; cursor: pointer; font-size: 16px; padding: 8px 12px; border-radius: 15px; color: var(--text-dark); font-weight: bold; }
         .screen { display: none; flex-direction: column; gap: 10px; padding: 15px; flex-grow: 1; overflow-y: auto; }
         .screen.active { display: flex; animation: fadeIn 0.3s; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* حاوية الصورة */
-        .hero-image-container {
-            width: 100%; height: 180px; border-radius: 20px; overflow: hidden;
-            border: 4px solid var(--pink); box-shadow: 0 5px 15px rgba(255, 20, 147, 0.2);
-            margin-bottom: 5px; background-color: #ffe4e1; display: flex; justify-content: center; align-items: center;
-        }
+        
+        .hero-image-container { width: 100%; height: 180px; border-radius: 20px; overflow: hidden; border: 4px solid var(--pink); box-shadow: 0 5px 15px rgba(255, 20, 147, 0.2); margin-bottom: 5px; background-color: #ffe4e1; display: flex; justify-content: center; align-items: center; }
+        /* تحديث مسار الصورة ليقبل jpg */
         .hero-image-container img { width: 100%; height: 100%; object-fit: cover; }
         
         h1 { color: var(--pink); text-align: center; font-size: 24px; margin: 5px 0; }
         .slogan { text-align: center; font-size: 14px; color: var(--orange); font-weight: bold; margin-bottom: 10px; }
         
-        .main-btn {
-            display: flex; align-items: center; justify-content: flex-start; gap: 15px;
-            padding: 15px; border-radius: 15px; border: none;
-            font-size: 16px; font-weight: bold; color: white; cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.1s;
-        }
+        .main-btn { display: flex; align-items: center; justify-content: flex-start; gap: 15px; padding: 15px; border-radius: 15px; border: none; font-size: 16px; font-weight: bold; color: white; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.1s; margin-bottom: 5px; width: 100%; }
         .main-btn:active { transform: scale(0.97); }
-        .btn-green { background-color: var(--green); }
-        .btn-blue { background-color: var(--blue); }
-        .btn-orange { background-color: var(--orange); }
-        .btn-pink { background-color: var(--pink); }
-
-        .story-box {
-            background: var(--bg-light); padding: 20px; border-radius: 15px;
-            text-align: center; color: var(--text-dark); font-size: 18px; line-height: 1.6;
-            border: 2px dashed var(--gold); margin-top: 10px;
-        }
-        .story-img { width: 100%; border-radius: 15px; margin-bottom: 10px; border: 3px solid var(--green); }
+        .btn-green { background-color: var(--green); } .btn-blue { background-color: var(--blue); } .btn-orange { background-color: var(--orange); } .btn-pink { background-color: var(--pink); } .btn-purple { background-color: var(--purple); }
 
         .score-display { text-align: center; font-size: 22px; color: var(--orange); font-weight: bold; }
-        .question-box {
-            background-color: var(--bg-light); padding: 20px; border-radius: 15px;
-            border: 2px dashed var(--pink); font-size: 18px; font-weight: bold;
-            text-align: center; color: var(--text-dark); min-height: 100px;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .option-btn {
-            background-color: var(--card-bg); color: var(--text-dark);
-            border: 2px solid var(--pink); padding: 15px;
-            border-radius: 12px; font-size: 16px; font-weight: bold;
-            cursor: pointer; transition: 0.2s; margin-bottom: 8px; width: 100%;
-        }
+        .question-box { background-color: var(--bg-light); padding: 20px; border-radius: 15px; border: 2px dashed var(--pink); font-size: 18px; font-weight: bold; text-align: center; color: var(--text-dark); min-height: 100px; display: flex; align-items: center; justify-content: center; }
+        .option-btn { background-color: var(--card-bg); color: var(--text-dark); border: 2px solid var(--pink); padding: 15px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-bottom: 8px; width: 100%; }
         .option-btn.correct { background-color: var(--green); color: white; border-color: var(--green); }
         .option-btn.wrong { background-color: var(--red); color: white; border-color: var(--red); }
         .feedback { text-align: center; font-weight: bold; min-height: 30px; color: var(--text-dark); }
+
+        /* تنسيق لعبة الذاكرة */
+        .memory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+        .memory-card { background-color: var(--pink); height: 80px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 40px; cursor: pointer; transition: transform 0.3s; color: transparent; }
+        .memory-card.flipped { background-color: var(--card-bg); border: 2px solid var(--pink); color: initial; transform: rotateY(180deg); }
+        .memory-card.matched { background-color: var(--green); color: initial; }
 
         .pin-input { width: 100%; padding: 15px; font-size: 20px; text-align: center; border: 2px solid var(--pink); border-radius: 10px; background: var(--bg-light); color: var(--text-dark); }
         .parent-panel { background: var(--bg-light); padding: 15px; border-radius: 15px; color: var(--text-dark); font-size: 15px; }
@@ -120,10 +68,7 @@
 <body>
 
     <div class="phone-frame">
-        <div class="status-bar">
-            <div>📶 🔋</div><div>سيليا وسندباد</div><div>AR</div>
-        </div>
-
+        <div class="status-bar"><div>📶 🔋</div><div>سيليا وسندباد</div><div>AR</div></div>
         <div class="controls">
             <button class="icon-btn" onclick="toggleTheme()" id="theme-btn">🌙</button>
             <button class="icon-btn" onclick="toggleLanguage()" id="lang-btn">EN</button>
@@ -131,8 +76,8 @@
 
         <div id="main-menu" class="screen active">
             <div class="hero-image-container">
-                <!-- ضع صورة سيليا وسندباد هنا باسم hero.png في نفس المجلد -->
-                <img src="hero.png" alt="سيليا وسندباد" onerror="this.src='https://via.placeholder.com/400x180/FF1493/FFFFFF?text=Celia+%26+Sinbad'">
+                <!-- تم تعديل الامتداد إلى jpg ليتطابق مع ملفك -->
+                <img src="hero.jpg" alt="سيليا وسندباد" onerror="this.src='https://via.placeholder.com/400x180/FF1493/FFFFFF?text=Celia+%26+Sinbad'">
             </div>
             <h1 id="t-title">مغامرات سيليا وسندباد</h1>
             <div class="slogan" id="t-slogan">اكتشف، تعلّم، وانطلق نحو المغامرة!</div>
@@ -140,6 +85,7 @@
             <div class="badge" id="badge-display"><h2 id="t-badge">🏅 أبطال أفريقيا!</h2></div>
 
             <button class="main-btn btn-green" onclick="startStory()"><span>🌳</span> <span id="t-btn-start">ابدأ المغامرة</span></button>
+            <button class="main-btn btn-purple" onclick="startMemoryGame()"><span>🧩</span> <span id="t-btn-memory">لعبة الذاكرة</span></button>
             <button class="main-btn btn-blue" onclick="showScreen('animals-screen')"><span>🦁</span> <span id="t-btn-animals">اكتشف الحيوانات</span></button>
             <button class="main-btn btn-orange" onclick="playAnimalSounds()"><span>🔊</span> <span id="t-btn-sounds">اسمع الأصوات</span></button>
             
@@ -151,8 +97,7 @@
 
         <div id="story-screen" class="screen">
             <h2 id="t-story-title" style="color:var(--pink); text-align:center;">استعد للمغامرة!</h2>
-            <img src="hero.png" class="story-img" alt="المغامرة" onerror="this.style.display='none'">
-            <div class="story-box" id="t-story-text">انطلق مع سيليا وسندباد في غابات أفريقيا، واكتشف الحيوانات السحرية، وأجب عن الألغاز لتجمع النجوم والوصول إلى الكنز!</div>
+            <div class="story-box" style="background: var(--bg-light); padding: 20px; border-radius: 15px; text-align: center; color: var(--text-dark); font-size: 18px; border: 2px dashed var(--gold);" id="t-story-text">انطلق مع سيليا وسندباد في غابات أفريقيا، واكتشف الحيوانات السحرية، وأجب عن الألغاز لتجمع النجوم والوصول إلى الكنز!</div>
             <button class="main-btn btn-green" style="margin-top:auto; justify-content:center;" onclick="startGame()"><span id="t-btn-go">هيا بنا! 🚀</span></button>
         </div>
 
@@ -162,6 +107,14 @@
             <div id="options-container" style="display:flex; flex-direction:column;"></div>
             <div class="feedback" id="feedback-msg"></div>
             <button class="main-btn btn-pink" style="justify-content:center; margin-top:auto;" onclick="showScreen('main-menu')"><span id="t-btn-back">العودة</span></button>
+        </div>
+
+        <!-- لعبة الذاكرة -->
+        <div id="memory-screen" class="screen">
+            <h2 id="t-memory-title" style="text-align:center; color:var(--pink);">لعبة الذاكرة</h2>
+            <p id="t-memory-desc" style="text-align:center;">اعثر على أزواج الحيوانات المتشابهة!</p>
+            <div class="memory-grid" id="memory-grid"></div>
+            <button class="main-btn btn-pink" style="margin-top:auto; justify-content:center;" onclick="showScreen('main-menu')"><span id="t-btn-back-memory">العودة</span></button>
         </div>
 
         <div id="animals-screen" class="screen">
@@ -198,21 +151,15 @@
     </div>
 
     <script>
-        // تسجيل Service Worker للعمل دون إنترنت
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed', err));
-            });
-        }
-
-        const SECRET_PIN_ENCODED = 'MTIzNA=='; // 1234
+        if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(err => console.log('SW failed', err)); }); }
+        const SECRET_PIN_ENCODED = 'MTIzNA=='; 
 
         const translations = {
             ar: {
                 title: "مغامرات سيليا وسندباد", slogan: "اكتشف، تعلّم، وانطلق نحو المغامرة!", badge: "🏅 أبطال أفريقيا!",
-                btnStart: "ابدأ المغامرة", btnAnimals: "اكتشف الحيوانات", btnSounds: "اسمع الأصوات", btnTest: "اختبر معلوماتك",
-                btnParent: "الوالدين", btnStars: "نجومي", btnBack: "العودة", btnBackAnimal: "العودة", btnBackStars: "العودة", btnBackPin: "إلغاء", btnBackParent: "العودة",
-                animalsTitle: "حيوانات أفريقيا", starsTitle: "نجومي",
+                btnStart: "ابدأ المغامرة", btnAnimals: "اكتشف الحيوانات", btnSounds: "اسمع الأصوات", btnMemory: "لعبة الذاكرة",
+                btnParent: "الوالدين", btnStars: "نجومي", btnBack: "العودة", btnBackAnimal: "العودة", btnBackStars: "العودة", btnBackPin: "إلغاء", btnBackParent: "العودة", btnBackMemory: "العودة",
+                animalsTitle: "حيوانات أفريقيا", starsTitle: "نجومي", memoryTitle: "لعبة الذاكرة", memoryDesc: "اعثر على أزواج الحيوانات المتشابهة!",
                 pinTitle: "رمز الوالدين", pinHint: "(الرمز الافتراضي 1234)", btnEnter: "دخول",
                 parentTitle: "لوحة الوالدين", pStars: "النجوم: ", pAnimals: "الحيوانات المكتشفة: ",
                 pData: "لا يتم تخزين أي بيانات شخصية. كل شيء محلي.", btnReset: "تصفير التقدم",
@@ -227,9 +174,9 @@
             },
             en: {
                 title: "Celia & Sinbad", slogan: "Discover, Learn, and Adventure!", badge: "🏅 African Heroes!",
-                btnStart: "Start Adventure", btnAnimals: "Animals", btnSounds: "Sounds", btnTest: "Test",
-                btnParent: "Parents", btnStars: "Stars", btnBack: "Back", btnBackAnimal: "Back", btnBackStars: "Back", btnBackPin: "Cancel", btnBackParent: "Back",
-                animalsTitle: "African Animals", starsTitle: "My Stars",
+                btnStart: "Start Adventure", btnAnimals: "Animals", btnSounds: "Sounds", btnMemory: "Memory Game",
+                btnParent: "Parents", btnStars: "Stars", btnBack: "Back", btnBackAnimal: "Back", btnBackStars: "Back", btnBackPin: "Cancel", btnBackParent: "Back", btnBackMemory: "Back",
+                animalsTitle: "African Animals", starsTitle: "My Stars", memoryTitle: "Memory Game", memoryDesc: "Find the matching animal pairs!",
                 pinTitle: "Parents PIN", pinHint: "(Default 1234)", btnEnter: "Enter",
                 parentTitle: "Parent Panel", pStars: "Stars: ", pAnimals: "Animals Found: ",
                 pData: "No personal data stored. All local.", btnReset: "Reset Progress",
@@ -248,100 +195,129 @@
         let currentTheme = localStorage.getItem('celiaTheme') || 'light';
         let gameState = JSON.parse(localStorage.getItem('celiaData')) || { totalStars: 0, allTimeSolved: [], currentRound: [] };
 
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playTone(freq, type, dur) {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
-            osc.type = type; osc.frequency.value = freq; gain.gain.value = 0.1;
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + dur);
-            osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + dur);
-        }
+        // --- الأصوات الحقيقية للحيوانات ---
         function playAnimalSounds() {
-            playTone(200, 'sawtooth', 0.5); 
-            setTimeout(() => playTone(600, 'sine', 0.3), 600); 
-            setTimeout(() => playTone(400, 'square', 0.2), 1000); 
+            // روابط لأصوات حيوانات حقيقية
+            const sounds = [
+                new Audio('https://www.soundjay.com/animals/lion-roar-1.mp3'), // أسد
+                new Audio('https://www.soundjay.com/animals/elephant-1.mp3'), // فيل
+                new Audio('https://www.soundjay.com/animals/monkey-1.mp3') // قرد
+            ];
+            let i = 0;
+            function playNext() {
+                if (i < sounds.length) {
+                    sounds[i].play().catch(e => console.log("Audio blocked by browser. User needs to interact first."));
+                    i++;
+                    setTimeout(playNext, 2000); // الانتظار ثانيتين بين كل صوت
+                }
+            }
+            playNext();
             alert(currentLang==='ar' ? "🔊 استمع لأصوات حيوانات أفريقيا!" : "🔊 Listen to African animals!");
         }
 
+        // --- لعبة الذاكرة ---
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        
+        function startMemoryGame() {
+            showScreen('memory-screen');
+            const grid = document.getElementById('memory-grid');
+            grid.innerHTML = '';
+            matchedPairs = 0;
+            flippedCards = [];
+            
+            // 6 بطاقات (3 أزواج)
+            const animals = ['🦁', '🐘', '🦒'];
+            memoryCards = [...animals, ...animals].sort(() => Math.random() - 0.5);
+
+            memoryCards.forEach((animal, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.animal = animal;
+                card.dataset.index = index;
+                card.innerText = animal; // النص مخفي بالـ CSS
+                card.onclick = () => flipCard(card);
+                grid.appendChild(card);
+            });
+        }
+
+        function flipCard(card) {
+            if (flippedCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+            
+            card.classList.add('flipped');
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                const [card1, card2] = flippedCards;
+                if (card1.dataset.animal === card2.dataset.animal) {
+                    // تطابق
+                    card1.classList.add('matched');
+                    card2.classList.add('matched');
+                    flippedCards = [];
+                    matchedPairs++;
+                    if (matchedPairs === 3) {
+                        setTimeout(() => alert(currentLang === 'ar' ? "رائع! لقد أكملت اللعبة! ⭐" : "Great! You won! ⭐"), 500);
+                    }
+                } else {
+                    // عدم تطابق
+                    setTimeout(() => {
+                        card1.classList.remove('flipped');
+                        card2.classList.remove('flipped');
+                        flippedCards = [];
+                    }, 1000);
+                }
+            }
+        }
+
+        // --- وظائف النظام الأساسية ---
         function updateUI() {
             const t = translations[currentLang];
             document.getElementById('game-score').innerText = `⭐ ${gameState.totalStars}`;
             document.getElementById('total-stars-display').innerText = gameState.totalStars;
             document.getElementById('p-stars').innerText = t.pStars + gameState.totalStars;
             document.getElementById('p-animals').innerText = t.pAnimals + gameState.allTimeSolved.length + " / 3";
-            
             if (gameState.allTimeSolved.length >= 3) document.getElementById('badge-display').classList.add('show');
             else document.getElementById('badge-display').classList.remove('show');
-            
             localStorage.setItem('celiaData', JSON.stringify(gameState));
         }
 
-        function showScreen(id) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.getElementById('pin-input').value = '';
-        }
+        function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById('pin-input').value = ''; }
+        function toggleLanguage() { currentLang = currentLang === 'ar' ? 'en' : 'ar'; applyLanguage(); if(document.getElementById('game-screen').classList.contains('active')) loadQuestion(); }
+        function toggleTheme() { currentTheme = currentTheme === 'light' ? 'dark' : 'light'; applyTheme(); }
 
         function applyLanguage() {
             const t = translations[currentLang];
-            document.documentElement.lang = currentLang;
             document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
             document.getElementById('lang-btn').innerText = currentLang === 'ar' ? 'EN' : 'AR';
-            
             const map = {
-                't-title': t.title, 't-slogan': t.slogan, 't-badge': t.badge,
-                't-btn-start': t.btnStart, 't-btn-animals': t.btnAnimals, 't-btn-sounds': t.btnSounds,
-                't-btn-parent': t.btnParent, 't-btn-stars': t.btnStars, 't-btn-back': t.btnBack,
-                't-btn-back-animal': t.btnBackAnimal, 't-btn-back-stars': t.btnBackStars,
-                't-btn-back-pin': t.btnBackPin, 't-btn-back-parent': t.btnBackParent,
-                't-animals-title': t.animalsTitle, 't-stars-title': t.starsTitle,
-                't-pin-title': t.pinTitle, 't-pin-hint': t.pinHint, 't-btn-enter': t.btnEnter,
-                't-parent-title': t.parentTitle, 'p-stars': t.pStars, 'p-animals': t.pAnimals,
-                't-p-data': t.pData, 't-btn-reset': t.btnReset,
-                't-story-title': t.storyTitle, 't-story-text': t.storyText, 't-btn-go': t.btnGo
+                't-title': t.title, 't-slogan': t.slogan, 't-badge': t.badge, 't-btn-start': t.btnStart, 't-btn-animals': t.btnAnimals, 't-btn-sounds': t.btnSounds, 't-btn-memory': t.btnMemory,
+                't-btn-parent': t.btnParent, 't-btn-stars': t.btnStars, 't-btn-back': t.btnBack, 't-btn-back-animal': t.btnBackAnimal, 't-btn-back-stars': t.btnBackStars, 't-btn-back-memory': t.btnBackMemory,
+                't-btn-back-pin': t.btnBackPin, 't-btn-back-parent': t.btnBackParent, 't-animals-title': t.animalsTitle, 't-stars-title': t.starsTitle, 't-memory-title': t.memoryTitle, 't-memory-desc': t.memoryDesc,
+                't-pin-title': t.pinTitle, 't-pin-hint': t.pinHint, 't-btn-enter': t.btnEnter, 't-parent-title': t.parentTitle, 'p-stars': t.pStars, 'p-animals': t.pAnimals,
+                't-p-data': t.pData, 't-btn-reset': t.btnReset, 't-story-title': t.storyTitle, 't-story-text': t.storyText, 't-btn-go': t.btnGo
             };
-            
-            for (let id in map) {
-                if (document.getElementById(id)) document.getElementById(id).innerHTML = map[id];
-            }
+            for (let id in map) { if (document.getElementById(id)) document.getElementById(id).innerHTML = map[id]; }
             document.getElementById('animal-info').innerHTML = t.animalInfo;
             updateUI();
-            localStorage.setItem('celiaLang', currentLang);
         }
 
         function applyTheme() {
-            if (currentTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.getElementById('theme-btn').innerText = '☀️';
-            } else {
-                document.body.classList.remove('dark-mode');
-                document.getElementById('theme-btn').innerText = '🌙';
-            }
-            localStorage.setItem('celiaTheme', currentTheme);
+            if (currentTheme === 'dark') { document.body.classList.add('dark-mode'); document.getElementById('theme-btn').innerText = '☀️'; }
+            else { document.body.classList.remove('dark-mode'); document.getElementById('theme-btn').innerText = '🌙'; }
         }
 
-        function toggleLanguage() { currentLang = currentLang === 'ar' ? 'en' : 'ar'; applyLanguage(); if(document.getElementById('game-screen').classList.contains('active')) loadQuestion(); }
-        function toggleTheme() { currentTheme = currentTheme === 'light' ? 'dark' : 'light'; applyTheme(); }
         function startStory() { showScreen('story-screen'); }
-
-        function startGame() {
-            if (gameState.currentRound.length >= 3) gameState.currentRound = [];
-            showScreen('game-screen'); 
-            loadQuestion();
-        }
+        function startGame() { if (gameState.currentRound.length >= 3) gameState.currentRound = []; showScreen('game-screen'); loadQuestion(); }
 
         function loadQuestion() {
             const t = translations[currentLang];
             let qIndex = t.questions.findIndex(q => !gameState.currentRound.includes(q.id));
-            if (qIndex === -1) { 
-                document.getElementById('question-text').innerText = currentLang === 'ar' ? "لقد وصلت إلى الكنز! 🏆" : "You reached the treasure! 🏆"; 
-                document.getElementById('options-container').innerHTML = ""; return; 
-            }
+            if (qIndex === -1) { document.getElementById('question-text').innerText = currentLang === 'ar' ? "لقد وصلت إلى الكنز! 🏆" : "You reached the treasure! 🏆"; document.getElementById('options-container').innerHTML = ""; return; }
             const qData = t.questions[qIndex];
             document.getElementById('question-text').innerText = qData.q;
             document.getElementById('feedback-msg').innerText = "";
             const container = document.getElementById('options-container'); container.innerHTML = "";
-            
             [...qData.opts].sort(() => Math.random() - 0.5).forEach(opt => {
                 const btn = document.createElement('button'); btn.className = 'option-btn'; btn.innerText = opt;
                 btn.onclick = () => checkAnswer(opt, qData, btn); container.appendChild(btn);
@@ -352,16 +328,12 @@
             document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
             const feedback = document.getElementById('feedback-msg');
             if (selected === qData.a) {
-                btnClicked.classList.add('correct'); 
-                feedback.innerText = currentLang === 'ar' ? "رائع! ⭐" : "Great! ⭐"; 
-                playTone(800, 'sine', 0.2);
+                btnClicked.classList.add('correct'); feedback.innerText = currentLang === 'ar' ? "رائع! ⭐" : "Great! ⭐"; 
                 if (!gameState.currentRound.includes(qData.id)) gameState.currentRound.push(qData.id);
                 if (!gameState.allTimeSolved.includes(qData.id)) { gameState.totalStars += 1; gameState.allTimeSolved.push(qData.id); }
                 updateUI(); setTimeout(() => { loadQuestion(); }, 1500);
             } else {
-                btnClicked.classList.add('wrong'); 
-                feedback.innerText = (currentLang === 'ar' ? "حاول مرة أخرى. تلميح: " : "Try again. Hint: ") + qData.hint; 
-                playTone(300, 'sawtooth', 0.3);
+                btnClicked.classList.add('wrong'); feedback.innerText = (currentLang === 'ar' ? "حاول مرة أخرى. تلميح: " : "Try again. Hint: ") + qData.hint; 
                 setTimeout(() => { btnClicked.classList.remove('wrong'); document.querySelectorAll('.option-btn').forEach(b => b.disabled = false); feedback.innerText = ""; }, 2000);
             }
         }
@@ -369,14 +341,10 @@
         function checkPin() {
             const pin = document.getElementById('pin-input').value;
             if (btoa(pin) === SECRET_PIN_ENCODED) showScreen('parent-screen');
-            else { playTone(300, 'sawtooth', 0.3); alert(currentLang === 'ar' ? "رمز خاطئ!" : "Wrong PIN!"); }
+            else { alert(currentLang === 'ar' ? "رمز خاطئ!" : "Wrong PIN!"); }
         }
 
-        function resetProgress() {
-            if(confirm(currentLang === 'ar' ? "هل تريد مسح كل التقدم؟" : "Reset all progress?")) { 
-                gameState = { totalStars: 0, allTimeSolved: [], currentRound: [] }; updateUI(); showScreen('main-menu'); 
-            }
-        }
+        function resetProgress() { if(confirm("مسح كل التقدم؟")) { gameState = { totalStars: 0, allTimeSolved: [], currentRound: [] }; updateUI(); showScreen('main-menu'); } }
 
         applyTheme(); applyLanguage();
     </script>
