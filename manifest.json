@@ -1,15 +1,30 @@
+
+
+تخطى إلى المحتوى
+استخدام Gmail مع قارئات الشاشة
+لم يعُد إصدار المتصفح هذا متوفرًا. يُرجى الترقية إلى أحد المتصفّحات المعتمدة.
+6 من 197
+Manifest
+البريد الوارد
+
+AYA Mohamed
+11:14 ص ‎(قبل 9 دقائق)‎
+أنا
+
+يبدو أنّ هذه الرسالة باللغة الإنجليزية
 {
-  "name": "مغامرات سيليا وسندباد",
-  "short_name": "سيليا وسندباد",
-  "description": "لعبة تعليمية للأطفال لاكتشاف حيوانات أفريقيا وجمع النجوم.",
+  "name": "مغامرات سيليا وسندباد في غابات أفريقيا",
+  "short_name": "مغامرات سيليا",
+  "lang": "ar",
+  "dir": "rtl",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#FFDEE9",
-  "theme_color": "#FF1493",
+  "background_color": "#fff7fb",
+  "theme_color": "#ff1493",
   "icons": [
     {
-      "src": "icon.svg",
+      "src": "./icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
