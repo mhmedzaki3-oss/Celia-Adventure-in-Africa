@@ -1,352 +1,698 @@
-
-
-تخطى إلى المحتوى
-استخدام Gmail مع قارئات الشاشة
-لم يعُد إصدار المتصفح هذا متوفرًا. يُرجى الترقية إلى أحد المتصفّحات المعتمدة.
-1 من 189
-Index.html
-البريد الوارد
-
-AYA Mohamed <ayazaki1911@gmail.com‏>
-9:41 ص ‎(قبل 0 دقيقة)‎
-أنا
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#FF1493">
-    <title>مغامرات سيليا وسندباد</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/svg+xml" href="icon.svg">
-    <style>
-        :root { --pink: #FF1493; --gold: #FFD700; --bg-light: #f4f7f6; --card-bg: #ffffff; --text-dark: #2c3e50; --green: #2ecc71; --red: #e74c3c; --blue: #3498db; --orange: #f39c12; --purple: #9b59b6; }
-        body.dark-mode { --bg-light: #121212; --card-bg: #1e1e1e; --text-dark: #ecf0f1; }
-        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%); margin: 0; padding: 15px; display: flex; justify-content: center; align-items: center; min-height: 100vh; transition: background 0.3s; }
-        body.dark-mode { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
-        .phone-frame { width: 100%; max-width: 400px; background-color: var(--card-bg); border-radius: 35px; box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 0 0 6px var(--pink); overflow: hidden; position: relative; height: 800px; max-height: 95vh; display: flex; flex-direction: column; }
-        .status-bar { background-color: var(--pink); color: white; padding: 8px 15px; display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; }
-        .controls { display: flex; justify-content: space-between; padding: 10px 15px; background: var(--card-bg); }
-        .icon-btn { background: var(--bg-light); border: none; cursor: pointer; font-size: 16px; padding: 8px 12px; border-radius: 15px; color: var(--text-dark); font-weight: bold; }
-        .screen { display: none; flex-direction: column; gap: 10px; padding: 15px; flex-grow: 1; overflow-y: auto; }
-        .screen.active { display: flex; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .hero-image-container { width: 100%; height: 180px; border-radius: 20px; overflow: hidden; border: 4px solid var(--pink); box-shadow: 0 5px 15px rgba(255, 20, 147, 0.2); margin-bottom: 5px; background-color: #ffe4e1; display: flex; justify-content: center; align-items: center; }
-        /* تحديث مسار الصورة ليقبل jpg */
-        .hero-image-container img { width: 100%; height: 100%; object-fit: cover; }
-        
-        h1 { color: var(--pink); text-align: center; font-size: 24px; margin: 5px 0; }
-        .slogan { text-align: center; font-size: 14px; color: var(--orange); font-weight: bold; margin-bottom: 10px; }
-        
-        .main-btn { display: flex; align-items: center; justify-content: flex-start; gap: 15px; padding: 15px; border-radius: 15px; border: none; font-size: 16px; font-weight: bold; color: white; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.1s; margin-bottom: 5px; width: 100%; }
-        .main-btn:active { transform: scale(0.97); }
-        .btn-green { background-color: var(--green); } .btn-blue { background-color: var(--blue); } .btn-orange { background-color: var(--orange); } .btn-pink { background-color: var(--pink); } .btn-purple { background-color: var(--purple); }
-
-        .score-display { text-align: center; font-size: 22px; color: var(--orange); font-weight: bold; }
-        .question-box { background-color: var(--bg-light); padding: 20px; border-radius: 15px; border: 2px dashed var(--pink); font-size: 18px; font-weight: bold; text-align: center; color: var(--text-dark); min-height: 100px; display: flex; align-items: center; justify-content: center; }
-        .option-btn { background-color: var(--card-bg); color: var(--text-dark); border: 2px solid var(--pink); padding: 15px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-bottom: 8px; width: 100%; }
-        .option-btn.correct { background-color: var(--green); color: white; border-color: var(--green); }
-        .option-btn.wrong { background-color: var(--red); color: white; border-color: var(--red); }
-        .feedback { text-align: center; font-weight: bold; min-height: 30px; color: var(--text-dark); }
-
-        /* تنسيق لعبة الذاكرة */
-        .memory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
-        .memory-card { background-color: var(--pink); height: 80px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 40px; cursor: pointer; transition: transform 0.3s; color: transparent; }
-        .memory-card.flipped { background-color: var(--card-bg); border: 2px solid var(--pink); color: initial; transform: rotateY(180deg); }
-        .memory-card.matched { background-color: var(--green); color: initial; }
-
-        .pin-input { width: 100%; padding: 15px; font-size: 20px; text-align: center; border: 2px solid var(--pink); border-radius: 10px; background: var(--bg-light); color: var(--text-dark); }
-        .parent-panel { background: var(--bg-light); padding: 15px; border-radius: 15px; color: var(--text-dark); font-size: 15px; }
-        .badge { display: none; text-align: center; margin: 10px 0; }
-        .badge.show { display: block; animation: pop 0.5s; }
-        @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ff1493">
+<meta name="description" content="مغامرات تعليمية وألعاب حيوانات للأطفال">
+<title>مغامرات سيليا وسندباد</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+:root{--pink:#ff1493;--gold:#ffd700;--bg:#f4f7f6;--card:#fff;--text:#263445;--green:#27ae60;--red:#e74c3c;--blue:#3498db;--orange:#f39c12;--purple:#8e44ad;--line:#f6a5d0}
+body.dark-mode{--bg:#141824;--card:#202638;--text:#f3f5fb;--line:#67405b}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100vh;padding:12px;background:linear-gradient(135deg,#ffdee9,#b5fffc);display:flex;justify-content:center;align-items:center;color:var(--text)}
+body.dark-mode{background:linear-gradient(135deg,#151525,#17263c)}
+button,input{font:inherit}.phone{width:100%;max-width:430px;height:min(900px,96vh);min-height:560px;display:flex;flex-direction:column;overflow:hidden;background:var(--card);border-radius:28px;border:5px solid var(--pink);box-shadow:0 12px 34px #0002}
+.status{background:var(--pink);color:white;display:flex;justify-content:space-between;padding:7px 14px;font-size:12px;font-weight:700}.toolbar{display:flex;justify-content:space-between;padding:9px 14px;background:var(--card)}.small{border:0;border-radius:12px;padding:8px 12px;background:var(--bg);color:var(--text);font-weight:700;cursor:pointer}
+.screen{display:none;flex:1;overflow:auto;padding:14px;gap:10px}.screen.active{display:flex;flex-direction:column;animation:fade .18s}@keyframes fade{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
+.hero{height:145px;flex:none;border-radius:18px;background:linear-gradient(140deg,#ff1493,#ffb347,#54c8a8);display:flex;align-items:center;justify-content:center;text-align:center;color:white;border:3px solid var(--line);font-weight:900;font-size:24px;text-shadow:0 2px 5px #0005;line-height:1.5}.hero span{display:block;font-size:42px}
+h1,h2{text-align:center;color:var(--pink);margin:3px 0}.slogan{text-align:center;color:var(--orange);font-weight:800}.btn{width:100%;border:0;border-radius:14px;padding:13px 14px;color:#fff;font-weight:800;font-size:16px;text-align:start;cursor:pointer;box-shadow:0 3px 7px #0001}.btn:active{transform:scale(.985)}.green{background:var(--green)}.blue{background:var(--blue)}.orange{background:var(--orange)}.pink{background:var(--pink)}.purple{background:var(--purple)}.row{display:flex;gap:8px}.row .btn{flex:1;text-align:center;font-size:14px}.box{background:var(--bg);border:2px dashed var(--line);border-radius:16px;padding:16px;text-align:center;line-height:1.8}.score{text-align:center;font-size:22px;font-weight:900;color:var(--orange)}.option{width:100%;padding:13px;border:2px solid var(--pink);border-radius:12px;background:var(--card);color:var(--text);font-weight:750;margin:4px 0;cursor:pointer}.option.correct{background:var(--green);color:#fff}.option.wrong{background:var(--red);color:#fff}.option:disabled{cursor:default}.feedback{text-align:center;min-height:28px;font-weight:800}.memory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.memory-card{height:76px;border:0;border-radius:13px;background:var(--pink);color:transparent;font-size:37px;cursor:pointer;display:grid;place-items:center;user-select:none;transform:none}.memory-card.revealed,.memory-card.matched{background:var(--card);border:2px solid var(--pink);color:var(--text)}.memory-card.matched{background:#d9f8e4;border-color:var(--green)}body.dark-mode .memory-card.matched{background:#20523a;color:#fff}.animal{display:flex;align-items:center;gap:12px;text-align:start;padding:12px;border-radius:13px;background:var(--bg);color:var(--text);border:1px solid var(--line)}.animal .emoji{font-size:36px}.animal button{margin-inline-start:auto;border:0;border-radius:10px;background:var(--blue);color:white;padding:8px;font-weight:700}.pin{width:100%;padding:13px;text-align:center;font-size:22px;border:2px solid var(--pink);border-radius:12px;background:var(--bg);color:var(--text)}.note{font-size:12px;opacity:.8;line-height:1.5}.win{font-size:18px;text-align:center;color:var(--green);font-weight:900}.hidden{display:none!important}
+@media(max-height:650px){.phone{height:98vh;min-height:0}.hero{height:95px}.screen{padding:10px;gap:7px}.btn{padding:10px}.memory-card{height:60px}}
+</style>
 </head>
 <body>
+<div class="phone">
+ <div class="status"><span>📶 🔋</span><span>سيليا وسندباد</span><span id="status-lang">AR</span></div>
+ <div class="toolbar"><button class="small" id="theme-btn" type="button">🌙</button><button class="small" id="lang-btn" type="button">EN</button></div>
+ <section id="home" class="screen active">
+  <div class="hero" role="img" aria-label="شخصيات مغامرات سيليا وسندباد"><div><span>👧🏽 🐒 🌿</span>مغامرات سيليا وسندباد</div></div>
+  <h1 data-i18n="title">مغامرات سيليا وسندباد</h1><div class="slogan" data-i18n="slogan">اكتشف، تعلّم، وانطلق نحو المغامرة!</div>
+  <button class="btn green" id="story-btn">🌳 <span data-i18n="start">ابدأ المغامرة</span></button>
+  <button class="btn purple" id="memory-start">🧩 <span data-i18n="memory">لعبة الذاكرة</span></button>
+  <button class="btn blue" id="animals-open">🦁 <span data-i18n="animals">اكتشف الحيوانات</span></button>
+  <button class="btn orange" id="sounds-btn">🔊 <span data-i18n="sounds">اسمع أصوات الحيوانات (محاكاة)</span></button>
+  <div class="row"><button class="btn pink" id="parent-open">👨‍👩‍👧 <span data-i18n="parents">الوالدين</span></button><button class="btn pink" id="stars-open">⭐ <span data-i18n="myStars">نجومي</span></button></div>
+  <p class="note" data-i18n="offlineNote">الأصوات هنا نغمات محاكية وليست تسجيلات حقيقية لحيوانات.</p>
+ </section>
+ <section id="story" class="screen"><h2 data-i18n="ready">استعد للمغامرة!</h2><div class="box" data-i18n="storyText">انطلق مع سيليا وسندباد في غابات أفريقيا، وأجب عن الألغاز لتجمع النجوم وتصل إلى الكنز!</div><button class="btn green" id="play-quiz">🚀 <span data-i18n="letsGo">هيا بنا!</span></button><button class="btn pink back-home">↩ <span data-i18n="back">العودة</span></button></section>
+ <section id="quiz" class="screen"><div class="score" id="quiz-score">⭐ 0</div><div class="box" id="question">...</div><div id="options"></div><div class="feedback" id="feedback" aria-live="polite"></div><button class="btn pink back-home">↩ <span data-i18n="back">العودة</span></button></section>
+ <section id="memory" class="screen"><h2 data-i18n="memory">لعبة الذاكرة</h2><p class="box" data-i18n="memoryHint">اكشف البطاقات وابحث عن ثلاثة أزواج متشابهة.</p><div class="score" id="memory-status">0 / 3</div><div class="memory-grid" id="memory-grid"></div><div class="feedback" id="memory-feedback" aria-live="polite"></div><button class="btn purple" id="memory-again">🔄 <span data-i18n="playAgain">العب مرة أخرى</span></button><button class="btn pink back-home">↩ <span data-i18n="back">العودة</span></button></section>
+ <section id="animals" class="screen"><h2 data-i18n="animalTitle">حيوانات أفريقيا</h2><div id="animal-list"></div><button class="btn pink back-home">↩ <span data-i18n="back">العودة</span></button></section>
+ <section id="stars" class="screen"><h2 data-i18n="myStars">نجومي</h2><div style="font-size:64px;text-align:center">⭐</div><div class="score" style="font-size:34px" id="stars-total">0</div><div class="box" id="stars-detail"></div><button class="btn pink back-home">↩ <span data-i18n="back">العودة</span></button></section>
+ <section id="pin" class="screen"><h2 data-i18n="pinTitle">رمز الوالدين</h2><input id="pin-input" class="pin" type="password" inputmode="numeric" maxlength="4" placeholder="****" aria-label="PIN"><p class="note" data-i18n="pinNote">الرمز الافتراضي 1234 — هذا قفل بسيط للواجهة وليس حماية أمنية.</p><button class="btn green" id="pin-submit" data-i18n="enter">دخول</button><div id="pin-error" class="feedback"></div><button class="btn pink back-home" data-i18n="cancel">إلغاء</button></section>
+ <section id="parents" class="screen"><h2 data-i18n="parentTitle">لوحة الوالدين</h2><div class="box" id="parent-stats"></div><p class="note" data-i18n="privacyNote">يُحفظ التقدم محليًا في هذا المتصفح فقط.</p><button class="btn orange" id="reset-progress" data-i18n="reset">تصفير التقدم</button><button class="btn pink back-home" data-i18n="back">العودة</button></section>
+</div>
+<script>
+"use strict";
 
-    <div class="phone-frame">
-        <div class="status-bar"><div>📶 🔋</div><div>سيليا وسندباد</div><div>AR</div></div>
-        <div class="controls">
-            <button class="icon-btn" onclick="toggleTheme()" id="theme-btn">🌙</button>
-            <button class="icon-btn" onclick="toggleLanguage()" id="lang-btn">EN</button>
-        </div>
+const $ = id => document.getElementById(id);
 
-        <div id="main-menu" class="screen active">
-            <div class="hero-image-container">
-                <!-- تم تعديل الامتداد إلى jpg ليتطابق مع ملفك -->
-                <img src="hero.jpg" alt="سيليا وسندباد" onerror="this.src='https://via.placeholder.com/400x180/FF1493/FFFFFF?text=Celia+%26+Sinbad'">
-            </div>
-            <h1 id="t-title">مغامرات سيليا وسندباد</h1>
-            <div class="slogan" id="t-slogan">اكتشف، تعلّم، وانطلق نحو المغامرة!</div>
-            
-            <div class="badge" id="badge-display"><h2 id="t-badge">🏅 أبطال أفريقيا!</h2></div>
+const translations = {
+  ar: {
+    title: "مغامرات سيليا وسندباد",
+    slogan: "اكتشف، تعلّم، وانطلق نحو المغامرة!",
+    start: "ابدأ المغامرة",
+    memory: "لعبة الذاكرة",
+    animals: "اكتشف الحيوانات",
+    sounds: "اسمع أصوات الحيوانات (محاكاة)",
+    parents: "الوالدين",
+    myStars: "نجومي",
+    offlineNote: "الأصوات هنا نغمات محاكية وليست تسجيلات حقيقية لحيوانات.",
+    ready: "استعد للمغامرة!",
+    storyText: "انطلق مع سيليا وسندباد في غابات أفريقيا، وأجب عن الألغاز لتجمع النجوم وتصل إلى الكنز!",
+    letsGo: "هيا بنا!",
+    back: "العودة",
+    memoryHint: "اكشف البطاقات وابحث عن ثلاثة أزواج متشابهة.",
+    playAgain: "العب مرة أخرى",
+    animalTitle: "حيوانات أفريقيا",
+    pinTitle: "رمز الوالدين",
+    pinNote: "الرمز الافتراضي 1234 — هذا قفل بسيط للواجهة وليس حماية أمنية.",
+    enter: "دخول",
+    cancel: "إلغاء",
+    parentTitle: "لوحة الوالدين",
+    privacyNote: "يُحفظ التقدم محليًا في هذا المتصفح فقط.",
+    reset: "تصفير التقدم",
+    correct: "أحسنت! ⭐ حصلت على نجمة!",
+    wrong: "حاول مرة أخرى! 💪",
+    finished: "رائع! انتهت الأسئلة! 🎉",
+    points: "نجمة",
+    noStars: "ابدأ اللعب لتجمع النجوم!",
+    pinWrong: "الرمز غير صحيح.",
+    resetConfirm: "هل تريد تصفير كل النجوم والتقدم؟",
+    resetDone: "تم تصفير التقدم.",
+    foundPair: "وجدت زوجًا متطابقًا!",
+    tryAgain: "حاول مرة أخرى.",
+    memoryWin: "ممتاز! أكملت لعبة الذاكرة! ⭐",
+    playSound: "اضغط لسماع نغمة الحيوان",
+    elephant: "الفيل",
+    lion: "الأسد",
+    monkey: "القرد",
+    giraffe: "الزرافة",
+    zebra: "الحمار الوحشي",
+    parrot: "الببغاء",
+    parentTotal: "إجمالي النجوم",
+    parentQuestions: "الأسئلة التي أُجيب عنها",
+    parentPairs: "أزواج الذاكرة المكتملة"
+  },
+  en: {
+    title: "Celia & Sinbad Adventures",
+    slogan: "Discover, learn, and go on an adventure!",
+    start: "Start Adventure",
+    memory: "Memory Game",
+    animals: "Discover Animals",
+    sounds: "Animal sounds (simulated)",
+    parents: "Parents",
+    myStars: "My Stars",
+    offlineNote: "These are simulated tones, not real animal recordings.",
+    ready: "Get Ready for Adventure!",
+    storyText: "Explore African forests with Celia and Sinbad. Solve puzzles, collect stars, and find the treasure!",
+    letsGo: "Let's Go!",
+    back: "Back",
+    memoryHint: "Reveal cards and find three matching pairs.",
+    playAgain: "Play Again",
+    animalTitle: "African Animals",
+    pinTitle: "Parent PIN",
+    pinNote: "Default PIN: 1234. This is a simple interface lock, not security protection.",
+    enter: "Enter",
+    cancel: "Cancel",
+    parentTitle: "Parent Dashboard",
+    privacyNote: "Progress is stored locally in this browser only.",
+    reset: "Reset Progress",
+    correct: "Great job! ⭐ You earned a star!",
+    wrong: "Try again! 💪",
+    finished: "Wonderful! All questions completed! 🎉",
+    points: "Stars",
+    noStars: "Start playing to collect stars!",
+    pinWrong: "Incorrect PIN.",
+    resetConfirm: "Reset all stars and progress?",
+    resetDone: "Progress reset.",
+    foundPair: "You found a matching pair!",
+    tryAgain: "Try again.",
+    memoryWin: "Excellent! You completed the memory game! ⭐",
+    playSound: "Tap to hear the animal tone",
+    elephant: "Elephant",
+    lion: "Lion",
+    monkey: "Monkey",
+    giraffe: "Giraffe",
+    zebra: "Zebra",
+    parrot: "Parrot",
+    parentTotal: "Total stars",
+    parentQuestions: "Questions answered",
+    parentPairs: "Completed memory pairs"
+  }
+};
 
-            <button class="main-btn btn-green" onclick="startStory()"><span>🌳</span> <span id="t-btn-start">ابدأ المغامرة</span></button>
-            <button class="main-btn btn-purple" onclick="startMemoryGame()"><span>🧩</span> <span id="t-btn-memory">لعبة الذاكرة</span></button>
-            <button class="main-btn btn-blue" onclick="showScreen('animals-screen')"><span>🦁</span> <span id="t-btn-animals">اكتشف الحيوانات</span></button>
-            <button class="main-btn btn-orange" onclick="playAnimalSounds()"><span>🔊</span> <span id="t-btn-sounds">اسمع الأصوات</span></button>
-            
-            <div style="display: flex; gap: 10px; margin-top: 5px;">
-                <button class="main-btn btn-pink" style="flex:1; justify-content:center; font-size:13px;" onclick="showScreen('pin-screen')"><span id="t-btn-parent">الوالدين</span></button>
-                <button class="main-btn btn-pink" style="flex:1; justify-content:center; font-size:13px;" onclick="showScreen('stars-screen')"><span id="t-btn-stars">نجومي</span></button>
-            </div>
-        </div>
+let language = "ar";
+let stars = 0;
+let answered = [];
+let questionsAnswered = 0;
+let matchedPairs = 0;
+let quizIndex = 0;
+let quizLocked = false;
+let memoryCards = [];
+let firstCard = null;
+let secondCard = null;
+let memoryLocked = false;
+let audioContext = null;
 
-        <div id="story-screen" class="screen">
-            <h2 id="t-story-title" style="color:var(--pink); text-align:center;">استعد للمغامرة!</h2>
-            <div class="story-box" style="background: var(--bg-light); padding: 20px; border-radius: 15px; text-align: center; color: var(--text-dark); font-size: 18px; border: 2px dashed var(--gold);" id="t-story-text">انطلق مع سيليا وسندباد في غابات أفريقيا، واكتشف الحيوانات السحرية، وأجب عن الألغاز لتجمع النجوم والوصول إلى الكنز!</div>
-            <button class="main-btn btn-green" style="margin-top:auto; justify-content:center;" onclick="startGame()"><span id="t-btn-go">هيا بنا! 🚀</span></button>
-        </div>
+const questions = [
+  {
+    ar: "أي حيوان له خرطوم طويل؟",
+    en: "Which animal has a long trunk?",
+    options: [
+      { ar: "الفيل 🐘", en: "Elephant 🐘", correct: true },
+      { ar: "الأسد 🦁", en: "Lion 🦁", correct: false },
+      { ar: "الزرافة 🦒", en: "Giraffe 🦒", correct: false }
+    ]
+  },
+  {
+    ar: "أي حيوان له رقبة طويلة؟",
+    en: "Which animal has a long neck?",
+    options: [
+      { ar: "القرد 🐒", en: "Monkey 🐒", correct: false },
+      { ar: "الزرافة 🦒", en: "Giraffe 🦒", correct: true },
+      { ar: "الحمار الوحشي 🦓", en: "Zebra 🦓", correct: false }
+    ]
+  },
+  {
+    ar: "أي حيوان يُعرف بملك الغابة؟",
+    en: "Which animal is known as the king of the jungle?",
+    options: [
+      { ar: "الببغاء 🦜", en: "Parrot 🦜", correct: false },
+      { ar: "الفيل 🐘", en: "Elephant 🐘", correct: false },
+      { ar: "الأسد 🦁", en: "Lion 🦁", correct: true }
+    ]
+  },
+  {
+    ar: "أي حيوان يستطيع تقليد الأصوات؟",
+    en: "Which animal can imitate sounds?",
+    options: [
+      { ar: "الببغاء 🦜", en: "Parrot 🦜", correct: true },
+      { ar: "الزرافة 🦒", en: "Giraffe 🦒", correct: false },
+      { ar: "الحمار الوحشي 🦓", en: "Zebra 🦓", correct: false }
+    ]
+  },
+  {
+    ar: "أي حيوان له خطوط سوداء وبيضاء؟",
+    en: "Which animal has black and white stripes?",
+    options: [
+      { ar: "الأسد 🦁", en: "Lion 🦁", correct: false },
+      { ar: "الحمار الوحشي 🦓", en: "Zebra 🦓", correct: true },
+      { ar: "القرد 🐒", en: "Monkey 🐒", correct: false }
+    ]
+  }
+];
 
-        <div id="game-screen" class="screen">
-            <div class="score-display" id="game-score">⭐ 0</div>
-            <div class="question-box" id="question-text">...</div>
-            <div id="options-container" style="display:flex; flex-direction:column;"></div>
-            <div class="feedback" id="feedback-msg"></div>
-            <button class="main-btn btn-pink" style="justify-content:center; margin-top:auto;" onclick="showScreen('main-menu')"><span id="t-btn-back">العودة</span></button>
-        </div>
+const animals = [
+  { emoji: "🐘", key: "elephant", frequency: 220 },
+  { emoji: "🦁", key: "lion", frequency: 160 },
+  { emoji: "🐒", key: "monkey", frequency: 440 },
+  { emoji: "🦒", key: "giraffe", frequency: 330 },
+  { emoji: "🦓", key: "zebra", frequency: 260 },
+  { emoji: "🦜", key: "parrot", frequency: 520 }
+];
 
-        <!-- لعبة الذاكرة -->
-        <div id="memory-screen" class="screen">
-            <h2 id="t-memory-title" style="text-align:center; color:var(--pink);">لعبة الذاكرة</h2>
-            <p id="t-memory-desc" style="text-align:center;">اعثر على أزواج الحيوانات المتشابهة!</p>
-            <div class="memory-grid" id="memory-grid"></div>
-            <button class="main-btn btn-pink" style="margin-top:auto; justify-content:center;" onclick="showScreen('main-menu')"><span id="t-btn-back-memory">العودة</span></button>
-        </div>
+function t(key) {
+  return translations[language][key] || key;
+}
 
-        <div id="animals-screen" class="screen">
-            <h2 id="t-animals-title" style="text-align:center;">حيوانات أفريقيا</h2>
-            <div id="animal-info" style="text-align:center; font-size:16px; color:var(--text-dark); line-height: 2;"></div>
-            <button class="main-btn btn-pink" style="margin-top:auto; justify-content:center;" onclick="showScreen('main-menu')"><span id="t-btn-back-animal">العودة</span></button>
-        </div>
+function loadProgress() {
+  try {
+    const saved = JSON.parse(
+      localStorage.getItem("celiaAdventureProgress") || "{}"
+    );
 
-        <div id="stars-screen" class="screen">
-            <h2 id="t-stars-title" style="text-align:center;">نجومي</h2>
-            <div style="text-align: center; font-size: 60px;">⭐</div>
-            <div style="text-align: center; font-size: 30px; color: var(--orange); font-weight:bold;" id="total-stars-display">0</div>
-            <button class="main-btn btn-pink" style="margin-top:auto; justify-content:center;" onclick="showScreen('main-menu')"><span id="t-btn-back-stars">العودة</span></button>
-        </div>
+    stars = Number.isFinite(saved.stars) ? saved.stars : 0;
+    answered = Array.isArray(saved.answered) ? saved.answered : [];
+    questionsAnswered = Number.isFinite(saved.questionsAnswered)
+      ? saved.questionsAnswered
+      : 0;
+    matchedPairs = Number.isFinite(saved.matchedPairs)
+      ? saved.matchedPairs
+      : 0;
+  } catch (error) {
+    stars = 0;
+    answered = [];
+    questionsAnswered = 0;
+    matchedPairs = 0;
+  }
+}
 
-        <div id="pin-screen" class="screen">
-            <h2 id="t-pin-title" style="text-align:center;">رمز الوالدين</h2>
-            <input type="password" id="pin-input" class="pin-input" maxlength="4" placeholder="****">
-            <p style="text-align:center; font-size:12px; color:var(--text-light);" id="t-pin-hint">(الرمز الافتراضي 1234)</p>
-            <button class="main-btn btn-green" style="justify-content:center;" onclick="checkPin()"><span id="t-btn-enter">دخول</span></button>
-            <button class="main-btn btn-pink" style="margin-top:auto; justify-content:center;" onclick="showScreen('main-menu')"><span id="t-btn-back-pin">إلغاء</span></button>
-        </div>
+function saveProgress() {
+  try {
+    localStorage.setItem(
+      "celiaAdventureProgress",
+      JSON.stringify({
+        stars,
+        answered,
+        questionsAnswered,
+        matchedPairs
+      })
+    );
+  } catch (error) {
+    console.warn("Progress could not be saved.", error);
+  }
 
-        <div id="parent-screen" class="screen">
-            <h2 id="t-parent-title" style="text-align:center;">لوحة الوالدين</h2>
-            <div class="parent-panel">
-                <p id="p-stars">النجوم: 0</p>
-                <p id="p-animals">الحيوانات المكتشفة: 0 / 3</p>
-                <p style="font-size:12px; color:var(--text-light);" id="t-p-data">لا يتم تخزين أي بيانات شخصية.</p>
-            </div>
-            <button class="main-btn btn-orange" onclick="resetProgress()" style="margin-top:auto; justify-content:center; font-size:14px;"><span id="t-btn-reset">تصفير التقدم</span></button>
-            <button class="main-btn btn-pink" onclick="showScreen('main-menu')" style="justify-content:center;"><span id="t-btn-back-parent">العودة</span></button>
-        </div>
-    </div>
+  updateStars();
+}
 
-    <script>
-        if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(err => console.log('SW failed', err)); }); }
-        const SECRET_PIN_ENCODED = 'MTIzNA=='; 
+function updateStars() {
+  $("stars-total").textContent = stars;
+  $("quiz-score").textContent = "⭐ " + stars;
+  $("stars-detail").textContent =
+    stars > 0 ? stars + " " + t("points") : t("noStars");
+}
 
-        const translations = {
-            ar: {
-                title: "مغامرات سيليا وسندباد", slogan: "اكتشف، تعلّم، وانطلق نحو المغامرة!", badge: "🏅 أبطال أفريقيا!",
-                btnStart: "ابدأ المغامرة", btnAnimals: "اكتشف الحيوانات", btnSounds: "اسمع الأصوات", btnMemory: "لعبة الذاكرة",
-                btnParent: "الوالدين", btnStars: "نجومي", btnBack: "العودة", btnBackAnimal: "العودة", btnBackStars: "العودة", btnBackPin: "إلغاء", btnBackParent: "العودة", btnBackMemory: "العودة",
-                animalsTitle: "حيوانات أفريقيا", starsTitle: "نجومي", memoryTitle: "لعبة الذاكرة", memoryDesc: "اعثر على أزواج الحيوانات المتشابهة!",
-                pinTitle: "رمز الوالدين", pinHint: "(الرمز الافتراضي 1234)", btnEnter: "دخول",
-                parentTitle: "لوحة الوالدين", pStars: "النجوم: ", pAnimals: "الحيوانات المكتشفة: ",
-                pData: "لا يتم تخزين أي بيانات شخصية. كل شيء محلي.", btnReset: "تصفير التقدم",
-                storyTitle: "استعد للمغامرة!", storyText: "انطلق مع سيليا وسندباد في غابات أفريقيا، واكتشف الحيوانات السحرية، وأجب عن الألغاز لتجمع النجوم والوصول إلى الكنز!",
-                btnGo: "هيا بنا! 🚀",
-                animalInfo: "🦁 الأسد: ملك الغابة.<br>🐘 الفيل: أكبر حيوان بري.<br>🦒 الزرافة: أطول رقبة.<br>🐒 القرد: يحب الموز.<br>🦓 الحمار الوحشي: مخططة كالحمار.",
-                questions: [
-                    { id: 1, q: "مَن هو ملك الغابة الذي يزأر؟", a: "الأسد 🦁", opts: ["الفيل 🐘", "الأسد 🦁", "الزرافة 🦒"], hint: "يزأر بقوة" },
-                    { id: 2, q: "مَن الحيوان الذي يمتلك أطول رقبة؟", a: "الزرافة 🦒", opts: ["الأسد 🦁", "الحمار الوحشي 🦓", "الزرافة 🦒"], hint: "يأكل من أعالي الأشجار" },
-                    { id: 3, q: "مَن الحيوان الذي يحب أكل الموز والقفز؟", a: "القرد 🐒", opts: ["القرد 🐒", "الفيل 🐘", "الأسد 🦁"], hint: "يتسلق الأشجار" }
-                ]
-            },
-            en: {
-                title: "Celia & Sinbad", slogan: "Discover, Learn, and Adventure!", badge: "🏅 African Heroes!",
-                btnStart: "Start Adventure", btnAnimals: "Animals", btnSounds: "Sounds", btnMemory: "Memory Game",
-                btnParent: "Parents", btnStars: "Stars", btnBack: "Back", btnBackAnimal: "Back", btnBackStars: "Back", btnBackPin: "Cancel", btnBackParent: "Back", btnBackMemory: "Back",
-                animalsTitle: "African Animals", starsTitle: "My Stars", memoryTitle: "Memory Game", memoryDesc: "Find the matching animal pairs!",
-                pinTitle: "Parents PIN", pinHint: "(Default 1234)", btnEnter: "Enter",
-                parentTitle: "Parent Panel", pStars: "Stars: ", pAnimals: "Animals Found: ",
-                pData: "No personal data stored. All local.", btnReset: "Reset Progress",
-                storyTitle: "Get Ready!", storyText: "Join Celia & Sinbad in the African forest, discover magical animals, solve riddles to collect stars and reach the treasure!",
-                btnGo: "Let's Go! 🚀",
-                animalInfo: "🦁 Lion: King of the jungle.<br>🐘 Elephant: Largest land animal.<br>🦒 Giraffe: Longest neck.<br>🐒 Monkey: Loves bananas.<br>🦓 Zebra: Striped like a horse.",
-                questions: [
-                    { id: 1, q: "Who is the king of the jungle that roars?", a: "Lion 🦁", opts: ["Elephant 🐘", "Lion 🦁", "Giraffe 🦒"], hint: "Roars loudly" },
-                    { id: 2, q: "Which animal has the longest neck?", a: "Giraffe 🦒", opts: ["Lion 🦁", "Zebra 🦓", "Giraffe 🦒"], hint: "Eats from tall trees" },
-                    { id: 3, q: "Which animal loves bananas and jumping?", a: "Monkey 🐒", opts: ["Monkey 🐒", "Elephant 🐘", "Lion 🦁"], hint: "Climbs trees" }
-                ]
-            }
-        };
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.toggle("active", screen.id === id);
+  });
 
-        let currentLang = localStorage.getItem('celiaLang') || 'ar';
-        let currentTheme = localStorage.getItem('celiaTheme') || 'light';
-        let gameState = JSON.parse(localStorage.getItem('celiaData')) || { totalStars: 0, allTimeSolved: [], currentRound: [] };
+  if (id === "stars") updateStars();
+  if (id === "parents") updateParentDashboard();
+}
 
-        // --- الأصوات الحقيقية للحيوانات ---
-        function playAnimalSounds() {
-            // روابط لأصوات حيوانات حقيقية
-            const sounds = [
-                new Audio('https://www.soundjay.com/animals/lion-roar-1.mp3'), // أسد
-                new Audio('https://www.soundjay.com/animals/elephant-1.mp3'), // فيل
-                new Audio('https://www.soundjay.com/animals/monkey-1.mp3') // قرد
-            ];
-            let i = 0;
-            function playNext() {
-                if (i < sounds.length) {
-                    sounds[i].play().catch(e => console.log("Audio blocked by browser. User needs to interact first."));
-                    i++;
-                    setTimeout(playNext, 2000); // الانتظار ثانيتين بين كل صوت
-                }
-            }
-            playNext();
-            alert(currentLang==='ar' ? "🔊 استمع لأصوات حيوانات أفريقيا!" : "🔊 Listen to African animals!");
-        }
+function applyLanguage() {
+  document.documentElement.lang = language;
+  document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
 
-        // --- لعبة الذاكرة ---
-        let memoryCards = [];
-        let flippedCards = [];
-        let matchedPairs = 0;
-        
-        function startMemoryGame() {
-            showScreen('memory-screen');
-            const grid = document.getElementById('memory-grid');
-            grid.innerHTML = '';
-            matchedPairs = 0;
-            flippedCards = [];
-            
-            // 6 بطاقات (3 أزواج)
-            const animals = ['🦁', '🐘', '🦒'];
-            memoryCards = [...animals, ...animals].sort(() => Math.random() - 0.5);
+  document.querySelectorAll("[data-i18n]").forEach(element => {
+    const key = element.dataset.i18n;
+    if (translations[language][key]) {
+      element.textContent = translations[language][key];
+    }
+  });
 
-            memoryCards.forEach((animal, index) => {
-                const card = document.createElement('div');
-                card.className = 'memory-card';
-                card.dataset.animal = animal;
-                card.dataset.index = index;
-                card.innerText = animal; // النص مخفي بالـ CSS
-                card.onclick = () => flipCard(card);
-                grid.appendChild(card);
-            });
-        }
+  $("lang-btn").textContent = language === "ar" ? "EN" : "عربي";
+  $("status-lang").textContent = language.toUpperCase();
 
-        function flipCard(card) {
-            if (flippedCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
-            
-            card.classList.add('flipped');
-            flippedCards.push(card);
+  if ($("animal-list").children.length) renderAnimals();
+  updateStars();
+}
 
-            if (flippedCards.length === 2) {
-                const [card1, card2] = flippedCards;
-                if (card1.dataset.animal === card2.dataset.animal) {
-                    // تطابق
-                    card1.classList.add('matched');
-                    card2.classList.add('matched');
-                    flippedCards = [];
-                    matchedPairs++;
-                    if (matchedPairs === 3) {
-                        setTimeout(() => alert(currentLang === 'ar' ? "رائع! لقد أكملت اللعبة! ⭐" : "Great! You won! ⭐"), 500);
-                    }
-                } else {
-                    // عدم تطابق
-                    setTimeout(() => {
-                        card1.classList.remove('flipped');
-                        card2.classList.remove('flipped');
-                        flippedCards = [];
-                    }, 1000);
-                }
-            }
-        }
+function switchLanguage() {
+  language = language === "ar" ? "en" : "ar";
+  applyLanguage();
+}
 
-        // --- وظائف النظام الأساسية ---
-        function updateUI() {
-            const t = translations[currentLang];
-            document.getElementById('game-score').innerText = `⭐ ${gameState.totalStars}`;
-            document.getElementById('total-stars-display').innerText = gameState.totalStars;
-            document.getElementById('p-stars').innerText = t.pStars + gameState.totalStars;
-            document.getElementById('p-animals').innerText = t.pAnimals + gameState.allTimeSolved.length + " / 3";
-            if (gameState.allTimeSolved.length >= 3) document.getElementById('badge-display').classList.add('show');
-            else document.getElementById('badge-display').classList.remove('show');
-            localStorage.setItem('celiaData', JSON.stringify(gameState));
-        }
+function toggleTheme() {
+  document.body.classList.toggle("dark-mode");
+  $("theme-btn").textContent =
+    document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+}
 
-        function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById('pin-input').value = ''; }
-        function toggleLanguage() { currentLang = currentLang === 'ar' ? 'en' : 'ar'; applyLanguage(); if(document.getElementById('game-screen').classList.contains('active')) loadQuestion(); }
-        function toggleTheme() { currentTheme = currentTheme === 'light' ? 'dark' : 'light'; applyTheme(); }
+function startQuiz() {
+  quizIndex = 0;
+  quizLocked = false;
+  showScreen("quiz");
+  renderQuestion();
+}
 
-        function applyLanguage() {
-            const t = translations[currentLang];
-            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            document.getElementById('lang-btn').innerText = currentLang === 'ar' ? 'EN' : 'AR';
-            const map = {
-                't-title': t.title, 't-slogan': t.slogan, 't-badge': t.badge, 't-btn-start': t.btnStart, 't-btn-animals': t.btnAnimals, 't-btn-sounds': t.btnSounds, 't-btn-memory': t.btnMemory,
-                't-btn-parent': t.btnParent, 't-btn-stars': t.btnStars, 't-btn-back': t.btnBack, 't-btn-back-animal': t.btnBackAnimal, 't-btn-back-stars': t.btnBackStars, 't-btn-back-memory': t.btnBackMemory,
-                't-btn-back-pin': t.btnBackPin, 't-btn-back-parent': t.btnBackParent, 't-animals-title': t.animalsTitle, 't-stars-title': t.starsTitle, 't-memory-title': t.memoryTitle, 't-memory-desc': t.memoryDesc,
-                't-pin-title': t.pinTitle, 't-pin-hint': t.pinHint, 't-btn-enter': t.btnEnter, 't-parent-title': t.parentTitle, 'p-stars': t.pStars, 'p-animals': t.pAnimals,
-                't-p-data': t.pData, 't-btn-reset': t.btnReset, 't-story-title': t.storyTitle, 't-story-text': t.storyText, 't-btn-go': t.btnGo
-            };
-            for (let id in map) { if (document.getElementById(id)) document.getElementById(id).innerHTML = map[id]; }
-            document.getElementById('animal-info').innerHTML = t.animalInfo;
-            updateUI();
-        }
+function renderQuestion() {
+  const question = questions[quizIndex];
 
-        function applyTheme() {
-            if (currentTheme === 'dark') { document.body.classList.add('dark-mode'); document.getElementById('theme-btn').innerText = '☀️'; }
-            else { document.body.classList.remove('dark-mode'); document.getElementById('theme-btn').innerText = '🌙'; }
-        }
+  if (!question) {
+    $("question").textContent = t("finished");
+    $("options").innerHTML = "";
+    $("feedback").textContent = t("finished");
+    return;
+  }
 
-        function startStory() { showScreen('story-screen'); }
-        function startGame() { if (gameState.currentRound.length >= 3) gameState.currentRound = []; showScreen('game-screen'); loadQuestion(); }
+  $("question").textContent = question[language];
+  $("feedback").textContent = "";
+  $("options").innerHTML = "";
 
-        function loadQuestion() {
-            const t = translations[currentLang];
-            let qIndex = t.questions.findIndex(q => !gameState.currentRound.includes(q.id));
-            if (qIndex === -1) { document.getElementById('question-text').innerText = currentLang === 'ar' ? "لقد وصلت إلى الكنز! 🏆" : "You reached the treasure! 🏆"; document.getElementById('options-container').innerHTML = ""; return; }
-            const qData = t.questions[qIndex];
-            document.getElementById('question-text').innerText = qData.q;
-            document.getElementById('feedback-msg').innerText = "";
-            const container = document.getElementById('options-container'); container.innerHTML = "";
-            [...qData.opts].sort(() => Math.random() - 0.5).forEach(opt => {
-                const btn = document.createElement('button'); btn.className = 'option-btn'; btn.innerText = opt;
-                btn.onclick = () => checkAnswer(opt, qData, btn); container.appendChild(btn);
-            });
-        }
+  question.options.forEach((option, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "option";
+    button.textContent = option[language];
 
-        function checkAnswer(selected, qData, btnClicked) {
-            document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
-            const feedback = document.getElementById('feedback-msg');
-            if (selected === qData.a) {
-                btnClicked.classList.add('correct'); feedback.innerText = currentLang === 'ar' ? "رائع! ⭐" : "Great! ⭐"; 
-                if (!gameState.currentRound.includes(qData.id)) gameState.currentRound.push(qData.id);
-                if (!gameState.allTimeSolved.includes(qData.id)) { gameState.totalStars += 1; gameState.allTimeSolved.push(qData.id); }
-                updateUI(); setTimeout(() => { loadQuestion(); }, 1500);
-            } else {
-                btnClicked.classList.add('wrong'); feedback.innerText = (currentLang === 'ar' ? "حاول مرة أخرى. تلميح: " : "Try again. Hint: ") + qData.hint; 
-                setTimeout(() => { btnClicked.classList.remove('wrong'); document.querySelectorAll('.option-btn').forEach(b => b.disabled = false); feedback.innerText = ""; }, 2000);
-            }
-        }
+    button.addEventListener("click", () => {
+      answerQuestion(option, button, index);
+    });
 
-        function checkPin() {
-            const pin = document.getElementById('pin-input').value;
-            if (btoa(pin) === SECRET_PIN_ENCODED) showScreen('parent-screen');
-            else { alert(currentLang === 'ar' ? "رمز خاطئ!" : "Wrong PIN!"); }
-        }
+    $("options").appendChild(button);
+  });
+}
 
-        function resetProgress() { if(confirm("مسح كل التقدم؟")) { gameState = { totalStars: 0, allTimeSolved: [], currentRound: [] }; updateUI(); showScreen('main-menu'); } }
+function answerQuestion(option, button, index) {
+  if (quizLocked) return;
 
-        applyTheme(); applyLanguage();
-    </script>
+  quizLocked = true;
+  questionsAnswered++;
+
+  document.querySelectorAll("#options .option").forEach(item => {
+    item.disabled = true;
+  });
+
+  if (option.correct) {
+    button.classList.add("correct");
+    $("feedback").textContent = t("correct");
+
+    const questionKey = String(quizIndex);
+
+    if (!answered.includes(questionKey)) {
+      answered.push(questionKey);
+      stars++;
+    }
+  } else {
+    button.classList.add("wrong");
+    $("feedback").textContent = t("wrong");
+
+    const correctButton = [...document.querySelectorAll("#options .option")]
+      .find((item, i) => questions[quizIndex].options[i].correct);
+
+    if (correctButton) correctButton.classList.add("correct");
+  }
+
+  saveProgress();
+
+  window.setTimeout(() => {
+    quizIndex++;
+    quizLocked = false;
+    renderQuestion();
+  }, 1200);
+}
+
+function shuffle(array) {
+  const result = [...array];
+
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+
+  return result;
+}
+
+function startMemoryGame() {
+  firstCard = null;
+  secondCard = null;
+  memoryLocked = false;
+  matchedPairs = Math.max(0, matchedPairs);
+
+  const symbols = ["🐘", "🦁", "🐒"];
+  memoryCards = shuffle([...symbols, ...symbols]);
+
+  $("memory-grid").innerHTML = "";
+  $("memory-status").textContent = "0 / 3";
+  $("memory-feedback").textContent = "";
+
+  memoryCards.forEach((symbol, index) => {
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "memory-card";
+    card.textContent = "❓";
+    card.dataset.symbol = symbol;
+    card.dataset.index = String(index);
+    card.setAttribute("aria-label", "Hidden card");
+
+    card.addEventListener("click", () => flipMemoryCard(card));
+    $("memory-grid").appendChild(card);
+  });
+
+  showScreen("memory");
+}
+
+function flipMemoryCard(card) {
+  if (
+    memoryLocked ||
+    card.classList.contains("matched") ||
+    card.classList.contains("revealed")
+  ) return;
+
+  card.classList.add("revealed");
+  card.textContent = card.dataset.symbol;
+  card.setAttribute("aria-label", card.dataset.symbol);
+
+  if (!firstCard) {
+    firstCard = card;
+    return;
+  }
+
+  secondCard = card;
+  memoryLocked = true;
+
+  if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+    firstCard.classList.add("matched");
+    secondCard.classList.add("matched");
+
+    firstCard.classList.remove("revealed");
+    secondCard.classList.remove("revealed");
+
+    matchedPairs = Math.min(3, matchedPairs + 1);
+    stars++;
+    saveProgress();
+
+    $("memory-status").textContent = matchedPairs + " / 3";
+    $("memory-feedback").textContent = t("foundPair");
+
+    firstCard = null;
+    secondCard = null;
+    memoryLocked = false;
+
+    if (matchedPairs >= 3) {
+      $("memory-feedback").textContent = t("memoryWin");
+    }
+  } else {
+    $("memory-feedback").textContent = t("tryAgain");
+
+    window.setTimeout(() => {
+      [firstCard, secondCard].forEach(item => {
+        item.classList.remove("revealed");
+        item.textContent = "❓";
+        item.setAttribute("aria-label", "Hidden card");
+      });
+
+      firstCard = null;
+      secondCard = null;
+      memoryLocked = false;
+    }, 800);
+  }
+}
+
+function renderAnimals() {
+  $("animal-list").innerHTML = "";
+
+  animals.forEach(animal => {
+    const row = document.createElement("div");
+    row.className = "animal";
+
+    const emoji = document.createElement("span");
+    emoji.className = "emoji";
+    emoji.textContent = animal.emoji;
+
+    const label = document.createElement("strong");
+    label.textContent = t(animal.key);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "🔊";
+    button.setAttribute("aria-label", t("playSound"));
+
+    button.addEventListener("click", () => playAnimalTone(animal.frequency));
+
+    row.append(emoji, label, button);
+    $("animal-list").appendChild(row);
+  });
+}
+
+function playAnimalTone(frequency) {
+  try {
+    const AudioContextClass =
+      window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioContextClass) {
+      alert(t("playSound"));
+      return;
+    }
+
+    if (!audioContext) audioContext = new AudioContextClass();
+
+    if (audioContext.state === "suspended") {
+      audioContext.resume();
+    }
+
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.type = "sine";
+    oscillator.frequency.value = frequency;
+
+    gain.gain.setValueAtTime(0.001, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+      0.15,
+      audioContext.currentTime + 0.04
+    );
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      audioContext.currentTime + 0.35
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.36);
+  } catch (error) {
+    console.warn("Audio playback failed.", error);
+  }
+}
+
+function playAllSounds() {
+  playAnimalTone(330);
+}
+
+function updateParentDashboard() {
+  $("parent-stats").innerHTML = "";
+
+  const stats = [
+    [t("parentTotal"), stars],
+    [t("parentQuestions"), questionsAnswered],
+    [t("parentPairs"), matchedPairs]
+  ];
+
+  stats.forEach(([label, value]) => {
+    const line = document.createElement("p");
+    line.textContent = label + ": " + value;
+    $("parent-stats").appendChild(line);
+  });
+}
+<script>
+// ربط أزرار التطبيق بالشاشات والوظائف
+document.getElementById('story-btn')?.addEventListener('click', () => {
+  showScreen('story');
+});
+
+document.getElementById('play-quiz')?.addEventListener('click', () => {
+  startQuiz();
+});
+
+document.getElementById('memory-start')?.addEventListener('click', () => {
+  startMemoryGame();
+});
+
+document.getElementById('memory-again')?.addEventListener('click', () => {
+  startMemoryGame();
+});
+
+document.getElementById('animals-open')?.addEventListener('click', () => {
+  renderAnimals();
+  showScreen('animals');
+});
+
+document.getElementById('sounds-btn')?.addEventListener('click', () => {
+  playAllSounds();
+});
+
+document.getElementById('parent-open')?.addEventListener('click', () => {
+  const pinInput = document.getElementById('pin-input');
+  const pinError = document.getElementById('pin-error');
+
+  if (pinInput) pinInput.value = '';
+  if (pinError) pinError.textContent = '';
+
+  showScreen('pin');
+});
+
+document.getElementById('stars-open')?.addEventListener('click', () => {
+  updateStars();
+  showScreen('stars');
+});
+
+document.getElementById('pin-submit')?.addEventListener('click', () => {
+  const pinInput = document.getElementById('pin-input');
+  const pinError = document.getElementById('pin-error');
+
+  if (pinInput && pinInput.value === '1234') {
+    if (pinError) pinError.textContent = '';
+    updateParentDashboard();
+    showScreen('parents');
+  } else {
+    if (pinError) {
+      pinError.textContent =
+        document.documentElement.lang === 'ar'
+          ? 'الرقم السري غير صحيح'
+          : 'Incorrect PIN';
+    }
+  }
+});
+
+// السماح باستخدام Enter لإدخال الرقم السري
+document.getElementById('pin-input')?.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    document.getElementById('pin-submit')?.click();
+  }
+});
+
+// أزرار العودة إلى الصفحة الرئيسية
+document.querySelectorAll('.back-home').forEach((button) => {
+  button.addEventListener('click', () => {
+    showScreen('home');
+  });
+});
+
+// تغيير اللغة
+document.getElementById('lang-btn')?.addEventListener('click', () => {
+  switchLanguage();
+});
+
+// تغيير المظهر
+document.getElementById('theme-btn')?.addEventListener('click', () => {
+  toggleTheme();
+});
+
+// إعادة ضبط التقدم من لوحة الوالدين
+document.getElementById('reset-progress')?.addEventListener('click', () => {
+  const message =
+    document.documentElement.lang === 'ar'
+      ? 'هل تريد إعادة ضبط النجوم والتقدم؟'
+      : 'Reset stars and progress?';
+
+  if (!window.confirm(message)) return;
+
+  stars = 0;
+  questionsAnswered = 0;
+  matchedPairs = 0;
+
+  if (Array.isArray(answered)) {
+    answered = [];
+  }
+
+  saveProgress();
+  updateStars();
+  updateParentDashboard();
+
+  alert(
+    document.documentElement.lang === 'ar'
+      ? 'تمت إعادة ضبط التقدم.'
+      : 'Progress has been reset.'
+  );
+});
+
+// تحميل البيانات المحفوظة وتجهيز التطبيق
+loadProgress();
+applyLanguage();
+renderAnimals();
+updateStars();
+
+// تسجيل Service Worker إذا كان ملف sw.js موجودًا
+// ويعمل التطبيق على HTTPS أو localhost.
+if (
+  'serviceWorker' in navigator &&
+  (location.protocol === 'https:' || location.hostname === 'localhost')
+) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch((error) => {
+      console.log('Service Worker registration failed:', error);
+    });
+  });
+}
+</script>
+
 </body>
 </html>
+
